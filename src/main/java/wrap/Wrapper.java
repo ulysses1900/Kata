@@ -12,9 +12,12 @@ public class Wrapper {
 			if (isSpace(input, max)) {
 				temp += (input.substring(0, max) + "\n");
 				input = input.substring(max + 1);
-			} else if (isSpace(input, max-1)) {
+			} else if (isSpace(input, max - 1)) {
 				temp += (input.substring(0, max - 1) + "\n");
 				input = input.substring(max);
+			} else if (isSpace(input, max - 2)) {
+				temp += (input.substring(0, max - 2) + "\n");
+				input = input.substring(max-1);
 			} else {
 				temp += (input.substring(0, max - 1) + "-\n");
 				input = input.substring(max - 1);

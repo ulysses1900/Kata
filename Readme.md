@@ -12,9 +12,8 @@ Word Wrapping Kata
 		"L o n d o n", split should be as follows: "L o\nn d\no n"
 		"Don Juan", split should be as follows: "Don\nJuan"
 		"Dr Jekyll", split should be as follows: "Dr\nJek-\nyll"
-		"it-works", split should be as follows: "it-\nwor-\nks"
 
-4. You may assume, that white spaces occur only as single white spaces (there are no two white spaces one after another).
+4. You may assume, that white spaces occur only as single white spaces (there are no two white spaces one after another). You may assume, that there are no "-" characters in the input String.
 
 //write down first test case
 import org.testng.Assert;
@@ -279,3 +278,45 @@ public boolean isSpace(String s, int i) {
 		return true;
 	return false;
 }
+
+//add test case
+
+@Test
+public void twoWordsDividedBySpaceCharSecondWord(){
+	input = "Dr Jekyll";
+	result = wrapper.split(input);
+	assertEquals(result, "Dr\nJek-\nyll");
+}
+
+// Total tests run: 7, Failures: 1, Skips: 0
+
+//write code
+
+public String split(String input) {
+
+	if (isLengthMoreThanZeroAndLessOrEqualToMax(input))
+		return input;
+	String temp = "";
+	while (input.length() > max) {
+		if (isSpace(input, max)) {
+			temp += (input.substring(0, max) + "\n");
+			input = input.substring(max + 1);
+		} else if (isSpace(input, max - 1)) {
+			temp += (input.substring(0, max - 1) + "\n");
+			input = input.substring(max);
+		} else if (isSpace(input, max - 2)) {
+			temp += (input.substring(0, max - 2) + "\n");
+			input = input.substring(max-1);
+		} else {
+			temp += (input.substring(0, max - 1) + "-\n");
+			input = input.substring(max - 1);
+		}
+		if (isLengthMoreThanZeroAndLessOrEqualToMax(input)) {
+			temp += input;
+		}
+	}
+	return temp;
+}
+
+// Total tests run: 7, Failures: 0, Skips: 0
+
